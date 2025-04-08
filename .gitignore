@@ -1,5 +1,39 @@
+# Build folders
 bin/
 obj/
+
+# NuGet Packages
 /packages/
+
+# Rider and ReSharper files
+.idea/
+*.sln.iml
+*.iml
+/.idea/
 riderModule.iml
 /_ReSharper.Caches/
+**/.idea/
+**/.idea/*
+
+# User-specific files
+*.user
+*.suo
+*.useroscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Visual Studio Code
+.vscode/
+
+# Backup files 
+*.bak
+
+# Temporary files
+*.tmp
+
+# Other Jetbrains caches
+/.idea/
+/_ReSharper*/
+*.DotSettings.user # 3rd user has problem with it on it's .net installation...
