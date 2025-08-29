@@ -9,14 +9,14 @@
 
     <ItemGroup>
       <Folder Include="Backend\Api\" />
+      <Folder Include="Backend\Config\" />
       <Folder Include="Backend\Core\" />
-      <Folder Include="Backend\src\" />
       <Folder Include="Frontend\assets\" />
-      <Folder Include="Frontend\test\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="Backend\MemoryGameBackend.sln" />
+      <Folder Include="Frontend\lib\core\" />
+      <Folder Include="Frontend\lib\models\" />
+      <Folder Include="Frontend\lib\services\" />
+      <Folder Include="Frontend\lib\utils\" />
+      <Folder Include="Frontend\lib\widgets\" />
     </ItemGroup>
 
 </Project>
