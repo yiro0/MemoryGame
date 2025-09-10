@@ -7,11 +7,11 @@ public class Card
     public bool IsFlipped { get; }
     public bool IsMatched { get; }
 
-    public Card(int id, string value, bool isFlippped = false, bool isMatched = false)
+    public Card(int id, string value, bool isFlipped = false, bool isMatched = false)
     {
         Id = id; 
         Value = value;
-        IsFlipped = isFlippped;
+        IsFlipped = isFlipped;
         IsMatched = isMatched;
     }
     
