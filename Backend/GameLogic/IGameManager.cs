@@ -2,7 +2,7 @@ using MemoryGame.Backend.models;
 
 namespace MemoryGame.Backend.gameLogic;
 
-public class IGameManager
+public interface IGameManager
 {
     GameBoard GetBoard();
     void StartNewGame(GameSettings settings);

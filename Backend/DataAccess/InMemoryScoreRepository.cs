@@ -3,6 +3,7 @@ namespace MemoryGame.Backend.dataAccess;
 using MemoryGame.Backend.models;
 using System.Collections.Concurrent;
 
+//In memory implementation of IScoreRepository used for dev/test 
 public class InMemoryScoreRepository : IScoreRepository 
 {
     private readonly ConcurrentBag<Score> _scores = new();

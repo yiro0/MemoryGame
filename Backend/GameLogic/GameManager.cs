@@ -28,6 +28,7 @@ public class GameManager : IGameManager
         })
         .ToList();
         
+        //TODO: Implement shuffling algorithm
         _shuffle.Shuffle(cards);
         _board = new GameBoard(cards);
     }

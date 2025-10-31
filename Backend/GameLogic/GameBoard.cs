@@ -19,7 +19,6 @@ public class GameBoard
 
     public GameBoard MatchCards(IEnumerable<int> cardIds)
     {
-        // For fast o(1) lookup
         var idSet = new HashSet<int>(cardIds);
         var updateCards = Cards
             .Select(card => idSet.Contains(card.Id) ? card.Match() : card)
