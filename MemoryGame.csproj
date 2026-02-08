@@ -16,7 +16,6 @@
       <Folder Include="Frontend\lib\models\" />
       <Folder Include="Frontend\lib\services\" />
       <Folder Include="Frontend\lib\utils\" />
-      <Folder Include="Frontend\lib\widgets\" />
     </ItemGroup>
 
 </Project>
