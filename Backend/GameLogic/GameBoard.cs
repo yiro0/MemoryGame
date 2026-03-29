@@ -3,6 +3,7 @@ namespace MemoryGame.Backend.gameLogic;
 public class GameBoard
 {
     public IReadOnlyList<Card> Cards { get; }
+    public int BoardSize => Cards.Count;
 
     public GameBoard(IEnumerable<Card> cards)
     {
