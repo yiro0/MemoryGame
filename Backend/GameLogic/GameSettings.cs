@@ -6,7 +6,8 @@ public class GameSettings
     
     public GameSettings(IEnumerable<string> values)
     {
-        Values = Values.ToList().AsReadOnly();
+        Values = values.ToList().AsReadOnly();
     }
     // TODO: Add helpers like diff,time,playername etc.
+    // Maybe this should even be interface?
 }
