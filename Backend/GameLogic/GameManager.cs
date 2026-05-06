@@ -77,6 +77,5 @@ public class GameManager : IGameManager
         return _board;
     }
     
-    //TODO: Implement GameBoard RevealCard()
     public bool IsComplete() => _board.Cards.All(c => c.IsMatched);
 }

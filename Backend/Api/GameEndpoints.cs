@@ -18,6 +18,7 @@ public static class GameEndpoints
             return Results.Ok(gameManager.GetBoard());
         });
         
+        // Instead of reveal card flip card is being used 
         app.MapPost("/reveal", (RevealRequest request, IGameManager gameManager) =>
         {
             var board = gameManager.FlipCard(request.CardId);
@@ -38,8 +39,6 @@ public static class GameEndpoints
             });
             return Results.Created();
         });
-        
-        // TODO: /game/finish or sth
     }
     
     public record RevealRequest(int CardId);
