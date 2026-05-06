@@ -10,4 +10,5 @@ public interface IScoreRepository
     //unless there will be multiple ways of saving scores (e.g., in-memory, database, file)
     void SaveScore(Score score);
     IEnumerable<Score> GetAllScores();
+    IEnumerable<Score> GetTopScores(int limit);
 }

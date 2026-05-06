@@ -14,4 +14,9 @@ public class InMemoryScoreRepository : IScoreRepository
     }
 
     public IEnumerable<Score> GetAllScores() => _scores.ToArray();
+
+    public IEnumerable<Score> GetTopScores(int limit)
+    {
+        return _scores;
+    }
 }

@@ -1,21 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Backend\Api\" />
-      <Folder Include="Backend\Config\" />
-      <Folder Include="Backend\Core\" />
-      <Folder Include="Frontend\assets\" />
       <Folder Include="Frontend\lib\core\" />
       <Folder Include="Frontend\lib\models\" />
       <Folder Include="Frontend\lib\services\" />
       <Folder Include="Frontend\lib\utils\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
     </ItemGroup>
 
 </Project>
