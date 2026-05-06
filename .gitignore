@@ -37,3 +37,7 @@ riderModule.iml
 /.idea/
 /_ReSharper*/
 *.DotSettings.user # 3rd user has problem with it on it's .net installation...
+
+# environment files
+.env
+.env.*.local
