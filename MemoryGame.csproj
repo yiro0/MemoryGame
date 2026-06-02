@@ -7,13 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Frontend\lib\core\" />
-      <Folder Include="Frontend\lib\models\" />
-      <Folder Include="Frontend\lib\services\" />
-      <Folder Include="Frontend\lib\utils\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
     </ItemGroup>
 
