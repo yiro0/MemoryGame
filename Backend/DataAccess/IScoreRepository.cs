@@ -1,6 +1,6 @@
 namespace MemoryGame.Backend.dataAccess;
 
-using MemoryGame.Backend.models;
+using Models;
 
 public interface IScoreRepository
 {

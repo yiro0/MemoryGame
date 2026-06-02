@@ -1,7 +1,7 @@
 using MemoryGame.Backend.Api.Contracts;
 using MemoryGame.Backend.dataAccess;
-using MemoryGame.Backend.gameLogic;
-using MemoryGame.Backend.models;
+using MemoryGame.Backend.GameLogic;
+using MemoryGame.Backend.Models;
 
 namespace MemoryGame.Backend.Api;
 
@@ -13,7 +13,7 @@ public static class GameEndpoints
         
         group.MapPost("/start", (IGameManager gameManager, StartGameRequest request) =>
         {
-            var settings = new MemoryGame.Backend.gameLogic.GameSettings(request.Values);
+            var settings = new MemoryGame.Backend.GameLogic.GameSettings(request.Values);
             gameManager.StartNewGame(settings);
             return Results.Ok(gameManager.GetBoard());
         });

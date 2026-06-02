@@ -1,6 +1,6 @@
 using MemoryGame.Backend.Models;
 
-namespace MemoryGame.Backend.gameLogic;
+namespace MemoryGame.Backend.GameLogic;
 
 public class GameBoard
 {

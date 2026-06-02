@@ -1,4 +1,4 @@
-﻿using MemoryGame.Backend.gameLogic;
+﻿using MemoryGame.Backend.GameLogic;
 using MemoryGame.Backend.dataAccess;
 using MemoryGame.Backend.Api;
 using MemoryGame.Backend.utilities;

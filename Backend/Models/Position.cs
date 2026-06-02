@@ -1,4 +1,4 @@
-namespace MemoryGame.Backend.models;
+namespace MemoryGame.Backend.Models;
 
 public class Position
 {

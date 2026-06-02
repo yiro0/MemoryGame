@@ -1,4 +1,4 @@
-using MemoryGame.Backend.models;
+using MemoryGame.Backend.Models;
 
 namespace MemoryGame.Backend.Models;
 

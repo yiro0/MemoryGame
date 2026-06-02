@@ -1,4 +1,4 @@
-namespace MemoryGame.Backend.gameLogic;
+namespace MemoryGame.Backend.GameLogic;
 
 public class GameSettings
 {

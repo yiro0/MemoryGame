@@ -1,9 +1,8 @@
 using MemoryGame.Backend.utilities;
 using MemoryGame.Backend.dataAccess;
-using MemoryGame.Backend.models;
 using MemoryGame.Backend.Models;
 
-namespace MemoryGame.Backend.gameLogic;
+namespace MemoryGame.Backend.GameLogic;
 
 public class GameManager : IGameManager
 {
@@ -66,7 +65,7 @@ public class GameManager : IGameManager
         
         if (IsComplete())
         {
-            _scoreRepo?.SaveScore(new models.Score
+            _scoreRepo?.SaveScore(new Models.Score
             {
                 // TODO: Edit once front hook is ready 
                 // This should be fetched from front
