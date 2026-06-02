@@ -1,6 +1,8 @@
 using MemoryGame.Backend.utilities;
 using MemoryGame.Backend.dataAccess;
 using MemoryGame.Backend.models;
+using MemoryGame.Backend.Models;
+
 namespace MemoryGame.Backend.gameLogic;
 
 public class GameManager : IGameManager

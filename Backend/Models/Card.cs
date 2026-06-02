@@ -1,6 +1,6 @@
 using MemoryGame.Backend.models;
 
-namespace MemoryGame.Backend.gameLogic;
+namespace MemoryGame.Backend.Models;
 
 public class Card
 {

@@ -1,3 +1,5 @@
+using MemoryGame.Backend.Models;
+
 namespace MemoryGame.Backend.gameLogic;
 
 public class GameBoard
