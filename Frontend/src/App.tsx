@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { startGame } from "./services/gameService";
+import {gameService} from "./services/gameService.ts";
+import {DEFAULT_CARD_VALUES} from "./core/config.ts"
+import type {GameBoard} from "./Models/GameBoard.ts";
 
 export default function App() {
-  const [board, setBoard] = useState(null);
+  const [board, setBoard] = useState<GameBoard | null>(null);
 
   const handleStart = async () => {
-    const result = await startGame(["🐶","🐶","🐱","🐱","🦊","🦊"]);
+    if (board !== null) return;
+    const result = await gameService.start(DEFAULT_CARD_VALUES);
     console.log("Board from API:", result);
     setBoard(result);
   };
