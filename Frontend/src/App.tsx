@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {gameService} from "./services/gameService.ts";
 import {DEFAULT_CARD_VALUES} from "./core/config.ts"
-import type {GameBoard} from "./Models/GameBoard.ts";
+import type {GameBoard} from "./models/GameBoard.ts";
 
 export default function App() {
   const [board, setBoard] = useState<GameBoard | null>(null);
