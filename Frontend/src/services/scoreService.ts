@@ -1,5 +1,5 @@
 import {API_BASE_URL} from "../core/config.ts";
-import type {Score} from "../Models/Score.ts";
+import type {Score} from "../models/Score.ts";
 
 export const scoreService = {
     getTop: async (limit = 10): Promise<Score[]> => {

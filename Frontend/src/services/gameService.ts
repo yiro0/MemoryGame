@@ -1,5 +1,5 @@
 import {API_BASE_URL} from "../core/config.ts";
-import type {GameBoard} from "../Models/GameBoard.ts";
+import type {GameBoard} from "../models/GameBoard.ts";
 
 export const gameService = {
     start: async (values: string[]): Promise<GameBoard> => {
