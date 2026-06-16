@@ -8,4 +8,8 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Frontend\src\hooks\" />
+      <Folder Include="Frontend\src\pages\" />
+    </ItemGroup>
 </Project>
