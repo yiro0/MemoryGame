@@ -1,0 +1,167 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.content {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  margin: 0 0 32px;
+}
+
+.difficultySection {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.difficultyOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.difficultyButton {
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.difficultyButton:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
+}
+
+.difficultyButton.selected {
+  border-color: #667eea;
+  background: #667eea;
+  color: white;
+}
+
+.difficultyButton.selected .difficultyInfo {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.difficultyLabel {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.difficultyInfo {
+  font-size: 13px;
+  color: #999;
+}
+
+.difficultyButton.selected .difficultyInfo {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.infoSection {
+  margin-bottom: 32px;
+  padding: 16px;
+  background: #f0f4ff;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.infoText {
+  margin: 0;
+  color: #667eea;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.startButton {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 24px;
+}
+
+.startButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.startButton:active {
+  transform: translateY(0);
+}
+
+.rulesSection {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.rulesTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 12px;
+}
+
+.rulesList {
+  margin: 0;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.rulesList li {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
