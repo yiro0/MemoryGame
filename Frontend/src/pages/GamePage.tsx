@@ -7,7 +7,7 @@ import styles from './GamePage.module.css';
 export function GamePage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { board, moves, loading, error, startGame, flipCard, isComplete } = useGame();
+  const { board, moves, loading, error, startGame, flipCard, isComplete, isProcessing } = useGame();
 
   const difficulty: Difficulty = (location.state?.difficulty) || 'medium';
 
@@ -16,7 +16,7 @@ export function GamePage() {
   }, [difficulty]);
 
   const handleCardClick = (cardId: number) => {
-    if (board?.cards[cardId].isFlipped || board?.cards[cardId].isMatched) {
+    if (board?.cards[cardId].isFlipped || board?.cards[cardId].isMatched || isProcessing) {
       return;
     }
     flipCard(cardId);
