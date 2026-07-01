@@ -16,7 +16,9 @@ export function GamePage() {
   }, [difficulty]);
 
   const handleCardClick = (cardId: number) => {
-    if (board?.cards[cardId].isFlipped || board?.cards[cardId].isMatched || isProcessing) {
+    const clickedCard = board?.cards.find(card => card.id === cardId);
+
+    if (!clickedCard || clickedCard.isFlipped || clickedCard.isMatched || isProcessing) {
       return;
     }
     flipCard(cardId);
