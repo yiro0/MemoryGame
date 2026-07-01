@@ -10,8 +10,6 @@ export function HomePage() {
   const handleStart = () => {
     navigate('/game', { state: { difficulty: selectedDifficulty } });
   };
-  // TODO: First part of line #45-47 shouldn't be hardcoded
-  // should be fetched from DIFFICULTIES 
 
   return (
     <div className={styles.container}>
@@ -42,9 +40,9 @@ export function HomePage() {
 
         <div className={styles.infoSection}>
           <p className={styles.infoText}>
-            {selectedDifficulty === 'easy' && '6 pairs of cards - Perfect for beginners!'}
-            {selectedDifficulty === 'medium' && '8 pairs of cards - A good challenge!'}
-            {selectedDifficulty === 'hard' && '10 pairs of cards - For the experts!'}
+            {selectedDifficulty === 'easy' && `${DIFFICULTIES.easy.pairs} pairs of cards - Perfect for beginners!`}
+            {selectedDifficulty === 'medium' && `${DIFFICULTIES.medium.pairs} pairs of cards - A good challenge!`}
+            {selectedDifficulty === 'hard' && `${DIFFICULTIES.hard.pairs} pairs of cards - For the experts!`}
           </p>
         </div>
 
