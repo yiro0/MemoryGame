@@ -94,6 +94,10 @@
   font-size: 16px;
 }
 
+.difficultyLabel {
+  color: #667eea;
+}
+
 .difficultyInfo {
   font-size: 13px;
   color: #999;
@@ -101,6 +105,10 @@
 
 .difficultyButton.selected .difficultyInfo {
   color: rgba(255, 255, 255, 0.8);
+}
+
+.difficultyButton.selected .difficultyLabel {
+  color: white;
 }
 
 .infoSection {
