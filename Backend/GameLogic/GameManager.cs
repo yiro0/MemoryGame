@@ -21,9 +21,36 @@ public class GameManager : IGameManager
     
     public GameBoard GetBoard() => _board;
     
-    public void StartNewGame(GameSettings settings)
+    // Keep this logic once frontend is updated to use GameSettings
+    public void StartNewGame(string difficulty)
     {
-        var values = settings.Values;
+        var symbolPool = new[]
+        {
+            "dog", "cat", "fox", "frog",
+            "panda", "lion", "tiger", "horse",
+            "koala", "butterfly", "snake", "bird",
+            "turtle", "cow", "pig", "rabbit",
+            "monkey", "elephant", "penguin", "bear",
+            "duck", "sheep"
+        };
+
+        var difficultyMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "easy", 6 },
+            { "medium", 8 },
+            { "hard", 10 }
+        };
+
+        var pairs = difficultyMap.ContainsKey(difficulty)
+            ? difficultyMap[difficulty]
+            : difficultyMap["medium"];
+
+        var rnd = new Random();
+        var shuffledPool = symbolPool.OrderBy(eachSymbol => rnd.Next()).ToList();
+        var chosen = shuffledPool.Take(pairs).ToList();
+
+        var values = chosen;
+
         var cards = values
             .SelectMany((v, idx) => new[]
         {
@@ -31,10 +58,9 @@ public class GameManager : IGameManager
             new Card(idx * 2 + 2, v, new Position(0, 0))
         })
         .ToList();
-        
+
         _shuffle.Shuffle(cards);
-        
-        // Assign positions based on grid layout after shuffling
+
         var gridSize = (int)Math.Ceiling(Math.Sqrt(cards.Count));
         var cardsWithPositions = cards
             .Select((card, index) => 
@@ -44,10 +70,62 @@ public class GameManager : IGameManager
                 return new Card(card.Id, card.Value, new Position(row, col), card.IsFlipped, card.IsMatched);
             })
             .ToList();
-        
-        _board = new GameBoard(cardsWithPositions);
-        _gameStartTime = DateTime.UtcNow;
+
         _moveCount = 0;
+        _board = new GameBoard(cardsWithPositions, _moveCount);
+        _gameStartTime = DateTime.UtcNow;
+    }
+
+    public void StartNewGame(GameSettings settings)
+    {
+        if (settings?.Values != null && settings.Values.Count > 0)
+        {
+            // this will change when 
+            // difficulty-based part of backend will be properly implemented 
+            var single = settings.Values.Count == 1
+                ? settings.Values[0]
+                : null;
+            var difficultyMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
+            {
+                { "easy", 6 },
+                { "medium", 8 },
+                { "hard", 10 }
+            };
+
+            if (single != null && difficultyMap.ContainsKey(single))
+            {
+                StartNewGame(single);
+                return;
+            }
+            
+            var values = settings.Values;
+            var cards = values
+                .SelectMany((v, idx) => new[]
+            {
+                new Card(idx * 2 + 1, v, new Position(0, 0)),
+                new Card(idx * 2 + 2, v, new Position(0, 0))
+            })
+            .ToList();
+
+            _shuffle.Shuffle(cards);
+            var gridSize = (int)Math.Ceiling(Math.Sqrt(cards.Count));
+            var cardsWithPositions = cards
+                .Select((card, index) =>
+                {
+                    var row = index / gridSize;
+                    var col = index % gridSize;
+                    return new Card(card.Id, card.Value, new Position(row, col), card.IsFlipped, card.IsMatched);
+                })
+                .ToList();
+
+            _moveCount = 0;
+            _board = new GameBoard(cardsWithPositions, _moveCount);
+            _gameStartTime = DateTime.UtcNow;
+            return;
+        }
+
+        // Fallback to default difficulty-based start
+        StartNewGame("medium");
     }
 
     public GameBoard FlipCard(int cardId)
@@ -75,6 +153,8 @@ public class GameManager : IGameManager
             });
         }
 
+        _board = new GameBoard(_board.Cards, _moveCount);
+        
         return _board;
     }
     

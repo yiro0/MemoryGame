@@ -1,3 +1,3 @@
 namespace MemoryGame.Backend.Api.Contracts;
 
-public record StartGameRequest(IReadOnlyList<string> Values);
+public record StartGameRequest(string Difficulty);

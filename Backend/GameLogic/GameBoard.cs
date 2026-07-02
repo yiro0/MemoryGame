@@ -6,10 +6,12 @@ public class GameBoard
 {
     public IReadOnlyList<Card> Cards { get; }
     public int BoardSize => Cards.Count;
+    public int Moves { get; }
 
-    public GameBoard(IEnumerable<Card> cards)
+    public GameBoard(IEnumerable<Card> cards, int moves = 0)
     {
         Cards = cards.ToList().AsReadOnly();
+        Moves = moves;
     }
     
     public GameBoard FlipCard(int cardId)
@@ -17,7 +19,7 @@ public class GameBoard
         var updateCards = Cards
             .Select(card => card.Id == cardId ? card.Flip() : card)
             .ToList();
-        return new GameBoard(updateCards);
+        return new GameBoard(updateCards, Moves);
     }
 
     public GameBoard MatchCards(IEnumerable<int> cardIds)
@@ -26,6 +28,6 @@ public class GameBoard
         var updateCards = Cards
             .Select(card => idSet.Contains(card.Id) ? card.Match() : card)
             .ToList();
-        return new GameBoard(updateCards);
+        return new GameBoard(updateCards, Moves);
     }
 }

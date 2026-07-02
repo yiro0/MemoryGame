@@ -2,11 +2,11 @@ import {API_BASE_URL} from "../core/config.ts";
 import type {GameBoard} from "../models/GameBoard.ts";
 
 export const gameService = {
-    start: async (values: string[]): Promise<GameBoard> => {
+    start: async (difficulty: string): Promise<GameBoard> => {
         const res = await fetch(`${API_BASE_URL}/game/start`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({values}),
+            body: JSON.stringify({ difficulty }),
         });
         if (!res.ok) throw Error(`Start failed: ${res.status}`);
         return res.json();

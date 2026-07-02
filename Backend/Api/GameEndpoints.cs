@@ -13,8 +13,7 @@ public static class GameEndpoints
         
         group.MapPost("/start", (IGameManager gameManager, StartGameRequest request) =>
         {
-            var settings = new GameSettings(request.Values);
-            gameManager.StartNewGame(settings);
+            gameManager.StartNewGame(request.Difficulty);
             return Results.Ok(gameManager.GetBoard());
         });
         

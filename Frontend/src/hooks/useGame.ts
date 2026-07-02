@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import type {GameBoard} from "../models/GameBoard.ts";
 import {gameService} from "../services/gameService.ts";
-import {DIFFICULTIES, type Difficulty} from "../core/constants.ts";
+import {type Difficulty} from "../core/constants.ts";
 
 export const useGame = () => {
     const [board, setBoard] = useState<GameBoard | null>(null);
@@ -15,20 +15,10 @@ export const useGame = () => {
         try {
             setLoading(true);
             setMoves(0);
-            const pairs = DIFFICULTIES[difficulty].pairs;
-
-            const symbols = [
-                "dog", "cat", "fox", "frog",
-                "panda", "lion", "tiger", "horse",
-                "koala", "butterfly", "snake", "bird",
-                "turtle", "cow", "pig", "rabbit",
-                "monkey", "elephant", "penguin", "bear",
-                "duck", "sheep"
-            ];
-
-            const values = symbols.slice(0, pairs).flatMap(s => [s, s]);
-            const result = await gameService.start(values);
+            // Request backend to build the board for the chosen difficulty.
+            const result = await gameService.start(difficulty);
             setBoard(result);
+            setMoves(result.moves ?? 0);
         } catch {
             setError("Failed to start game!");
         } finally {
@@ -36,14 +26,12 @@ export const useGame = () => {
         }
     };
 
-    const flipCard = async (cardId: number, shouldCountAsMove: boolean = true) => {
+    const flipCard = async (cardId: number) => {
         try {
             setIsProcessing(true);
             const result = await gameService.flipCard(cardId);
             setBoard(result);
-            if (shouldCountAsMove) {
-                setMoves(m => m + 1);
-            }
+            setMoves(result.moves);
         } catch {
             setError("Failed to flip card!");
         } finally {
@@ -64,6 +52,7 @@ export const useGame = () => {
                         await gameService.flipCard(flipped[0].id);
                         const updatedBoard = await gameService.flipCard(flipped[1].id);
                         setBoard(updatedBoard);
+                        setMoves(updatedBoard.moves ?? moves);
                         setIsAutoFlipping(false);
                     } catch {
                         setError("Failed to auto-flip cards!");
