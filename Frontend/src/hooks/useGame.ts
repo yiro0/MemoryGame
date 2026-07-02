@@ -16,12 +16,16 @@ export const useGame = () => {
             setLoading(true);
             setMoves(0);
             const pairs = DIFFICULTIES[difficulty].pairs;
+
             const symbols = [
                 "dog", "cat", "fox", "frog",
                 "panda", "lion", "tiger", "horse",
                 "koala", "butterfly", "snake", "bird",
-                "turtle", "cow", "pig"
+                "turtle", "cow", "pig", "rabbit",
+                "monkey", "elephant", "penguin", "bear",
+                "duck", "sheep"
             ];
+
             const values = symbols.slice(0, pairs).flatMap(s => [s, s]);
             const result = await gameService.start(values);
             setBoard(result);
@@ -51,7 +55,7 @@ export const useGame = () => {
         if (!board) return;
 
         const flipped = board.cards.filter(c => c.isFlipped && !c.isMatched);
-        
+
         if (flipped.length === 2) {
             if (flipped[0].value !== flipped[1].value) {
                 setIsAutoFlipping(true);
@@ -78,5 +82,14 @@ export const useGame = () => {
     const isComplete = () =>
         board?.cards.every(c => c.isMatched) ?? false;
 
-    return {board, moves, loading, error, startGame, flipCard, isComplete, isProcessing: isProcessing || isAutoFlipping};
+    return {
+        board,
+        moves,
+        loading,
+        error,
+        startGame,
+        flipCard,
+        isComplete,
+        isProcessing: isProcessing || isAutoFlipping
+    };
 }
