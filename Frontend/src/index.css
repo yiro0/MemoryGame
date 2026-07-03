@@ -66,6 +66,50 @@ body {
   margin: 0;
 }
 
+.card-button {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: white;
+  font-weight: bold;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  font-size: clamp(14px, 4vw, 32px);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card-button.revealed {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.card-button.matched {
+  background: #e8f5e9;
+  border: 2px solid #4caf50;
+  color: #2e7d32;
+  cursor: default;
+  opacity: 0.8;
+}
+
+.card-button .card-inner {
+  padding: 8px;
+  text-align: center;
+  white-space: normal;
+}
+
+.card-button .card-value,
+.card-button .card-back {
+  font-size: inherit;
+  word-break: break-word;
+}
+
 h1,
 h2 {
   font-family: var(--heading);

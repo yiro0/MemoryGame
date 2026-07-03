@@ -86,7 +86,7 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 32px;
+  font-size: clamp(14px, 4vw, 32px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,6 +127,15 @@
 
 .cardContent {
   animation: cardFlip 0.4s ease;
+  /* ensure content wraps and inherits the responsive font-size */
+  font-size: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
 }
 
 @keyframes cardFlip {
@@ -248,6 +257,7 @@
   }
 
   .card {
-    font-size: 24px;
+    /* smaller cap on small screens; clamp already handles most cases */
+    font-size: clamp(12px, 6vw, 24px);
   }
 }
