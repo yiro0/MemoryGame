@@ -9,5 +9,5 @@ public class GameSettings
         Values = values.ToList().AsReadOnly();
     }
     // TODO: Add helpers like diff,time,playername etc.
-    // Maybe this should even be interface?
+    // Playername from login feature 
 }

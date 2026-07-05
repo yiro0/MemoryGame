@@ -145,8 +145,7 @@ public class GameManager : IGameManager
         {
             _scoreRepo?.SaveScore(new Models.Score
             {
-                // TODO: Edit once front hook is ready 
-                // This should be fetched from front
+                // TODO: Login feature and login credentials
                 PlayerName = "Yerho",
                 Moves = _moveCount,
                 TimeSeconds = (int)(DateTime.UtcNow - _gameStartTime).TotalSeconds,
