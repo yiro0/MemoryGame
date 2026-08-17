@@ -1,5 +1,5 @@
 using MemoryGame.Backend.Api.Contracts;
-using MemoryGame.Backend.dataAccess;
+using MemoryGame.Backend.DataAccess.Interfaces;
 using MemoryGame.Backend.GameLogic;
 using MemoryGame.Backend.Models;
 

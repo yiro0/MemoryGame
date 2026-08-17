@@ -1,4 +1,4 @@
-using MemoryGame.Backend.dataAccess;
+using MemoryGame.Backend.DataAccess.Interfaces;
 
 namespace MemoryGame.Backend.Api;
 

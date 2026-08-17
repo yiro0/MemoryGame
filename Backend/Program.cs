@@ -1,6 +1,7 @@
 ﻿using MemoryGame.Backend.GameLogic;
-using MemoryGame.Backend.dataAccess;
 using MemoryGame.Backend.Api;
+using MemoryGame.Backend.DataAccess.InMemory;
+using MemoryGame.Backend.DataAccess.Interfaces;
 using MemoryGame.Backend.utilities;
 
 var builder = WebApplication.CreateBuilder(args);

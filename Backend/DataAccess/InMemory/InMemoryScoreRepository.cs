@@ -1,7 +1,8 @@
-namespace MemoryGame.Backend.dataAccess;
-
-using Models;
 using System.Collections.Concurrent;
+using MemoryGame.Backend.DataAccess.Interfaces;
+using MemoryGame.Backend.Models;
+
+namespace MemoryGame.Backend.DataAccess.InMemory;
 
 //In memory implementation of IScoreRepository used for dev/test 
 public class InMemoryScoreRepository : IScoreRepository 
