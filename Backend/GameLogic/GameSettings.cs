@@ -2,12 +2,19 @@ namespace MemoryGame.Backend.GameLogic;
 
 public class GameSettings
 {
-    public IReadOnlyList<string> Values { get; init; }
-    
+    public string? Difficulty { get; init; }
+    public int? PairCount { get; init; }
+    public IReadOnlyList<string>? Values { get; init; }
+    public int? TimeLimitSeconds { get; init; }
+    public string? PlayerName { get; init; }
+
+    public GameSettings(string difficulty = "medium")
+    {
+        Difficulty = difficulty;
+    }
+
     public GameSettings(IEnumerable<string> values)
     {
         Values = values.ToList().AsReadOnly();
     }
-    // TODO: Add helpers like diff,time,playername etc.
-    // Playername from login feature 
 }
