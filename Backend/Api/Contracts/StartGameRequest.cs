@@ -10,5 +10,5 @@ public record GameSettingsRequest(
     int? PairCount = null,
     IReadOnlyList<string>? Values = null,
     int? TimeLimitSeconds = null,
-    string? PlayerName = null
+    string? PlayerName = null //TODO: login feature
 );

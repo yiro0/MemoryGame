@@ -2,6 +2,7 @@ using MemoryGame.Backend.Api.Contracts;
 using MemoryGame.Backend.DataAccess.Interfaces;
 using MemoryGame.Backend.GameLogic;
 using MemoryGame.Backend.Models;
+using MemoryGame.Backend.Api.Contracts;
 
 namespace MemoryGame.Backend.Api;
 
@@ -11,9 +12,9 @@ public static class GameEndpoints
     {
         var group = app.MapGroup("/game");
         
-        group.MapPost("/start", (IGameManager gameManager, StartGameRequest request) =>
+        group.MapPost("/start", (IGameManager gameManager, StartGameRequest settings) =>
         {
-            gameManager.StartNewGame(request.Difficulty);
+            gameManager.StartNewGame(settings);
             return Results.Ok(gameManager.GetBoard());
         });
         

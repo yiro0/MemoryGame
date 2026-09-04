@@ -1,11 +1,32 @@
 using MemoryGame.Backend.DataAccess.Interfaces;
 using MemoryGame.Backend.utilities;
 using MemoryGame.Backend.Models;
+using MemoryGame.Backend.Api.Contracts;
 
 namespace MemoryGame.Backend.GameLogic;
 
 public class GameManager : IGameManager
 {
+    private static readonly string[] _symbolPool =
+    {
+        "dog", "cat", "fox", "frog",
+        "panda", "lion", "tiger", "horse",
+        "koala", "butterfly", "snake", "bird",
+        "turtle", "cow", "pig", "rabbit",
+        "monkey", "elephant", "penguin", "bear",
+        "duck", "sheep"
+    };
+
+    private static readonly Dictionary<string, int> _difficultyMap =
+        new(StringComparer.OrdinalIgnoreCase)
+        {
+            { "easy", 6 },
+            { "medium", 8 },
+            { "hard", 10 }
+        };
+
+    private const string DefaultDifficulty = "medium";
+
     private readonly IScoreRepository _scoreRepo;
     private readonly ShuffleHelper _shuffle;
     private GameBoard _board;
@@ -21,49 +42,68 @@ public class GameManager : IGameManager
     
     public GameBoard GetBoard() => _board;
     
-    // Keep this logic once frontend is updated to use GameSettings
     public void StartNewGame(string difficulty)
     {
-        var symbolPool = new[]
+        StartNewGame(new GameSettings(difficulty));
+    }
+
+    public void StartNewGame(GameSettings settings)
+    {
+        var effectiveDifficulty = ResolveDifficulty(settings?.Difficulty);
+        var pairCount = ResolvePairCount(settings?.PairCount, effectiveDifficulty);
+
+        var customValues = settings?.Values?
+            .Where(value => !string.IsNullOrWhiteSpace(value))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        List<string> values;
+        if (customValues != null && customValues.Count > 0)
         {
-            "dog", "cat", "fox", "frog",
-            "panda", "lion", "tiger", "horse",
-            "koala", "butterfly", "snake", "bird",
-            "turtle", "cow", "pig", "rabbit",
-            "monkey", "elephant", "penguin", "bear",
-            "duck", "sheep"
-        };
+            values = customValues.Take(pairCount).ToList();
 
-        var difficultyMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
+            if (values.Count < pairCount)
+            {
+                var remaining = _symbolPool
+                    .Where(symbol => values.All(existing =>
+                        !string.Equals(existing, symbol, StringComparison.OrdinalIgnoreCase)))
+                    .Take(pairCount - values.Count);
+
+                values.AddRange(remaining);
+            }
+        }
+        else
         {
-            { "easy", 6 },
-            { "medium", 8 },
-            { "hard", 10 }
-        };
+            var rnd = new Random();
+            values = _symbolPool
+                .OrderBy(_ => rnd.Next())
+                .Take(pairCount)
+                .ToList();
+        }
 
-        var pairs = difficultyMap.ContainsKey(difficulty)
-            ? difficultyMap[difficulty]
-            : difficultyMap["medium"];
-
-        var rnd = new Random();
-        var shuffledPool = symbolPool.OrderBy(eachSymbol => rnd.Next()).ToList();
-        var chosen = shuffledPool.Take(pairs).ToList();
-
-        var values = chosen;
+        if (values.Count < pairCount)
+        {
+            pairCount = _difficultyMap[DefaultDifficulty];
+            var rnd = new Random();
+            values = _symbolPool
+                .OrderBy(_ => rnd.Next())
+                .Take(pairCount)
+                .ToList();
+        }
 
         var cards = values
-            .SelectMany((v, idx) => new[]
-        {
-            new Card(idx * 2 + 1, v, new Position(0, 0)),
-            new Card(idx * 2 + 2, v, new Position(0, 0))
-        })
-        .ToList();
+            .SelectMany((value, idx) => new[]
+            {
+                new Card(idx * 2 + 1, value, new Position(0, 0)),
+                new Card(idx * 2 + 2, value, new Position(0, 0))
+            })
+            .ToList();
 
         _shuffle.Shuffle(cards);
 
         var gridSize = (int)Math.Ceiling(Math.Sqrt(cards.Count));
         var cardsWithPositions = cards
-            .Select((card, index) => 
+            .Select((card, index) =>
             {
                 var row = index / gridSize;
                 var col = index % gridSize;
@@ -76,58 +116,36 @@ public class GameManager : IGameManager
         _gameStartTime = DateTime.UtcNow;
     }
 
-    public void StartNewGame(GameSettings settings)
+    public void StartNewGame(StartGameRequest settings)
     {
-        if (settings?.Values != null && settings.Values.Count > 0)
+        var requestSettings = settings?.Settings;
+        var mappedSettings = new GameSettings(
+            requestSettings?.Difficulty ?? settings?.Difficulty ?? DefaultDifficulty)
         {
-            // this will change when 
-            // difficulty-based part of backend will be properly implemented 
-            var single = settings.Values.Count == 1
-                ? settings.Values[0]
-                : null;
-            var difficultyMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
-            {
-                { "easy", 6 },
-                { "medium", 8 },
-                { "hard", 10 }
-            };
+            PairCount = requestSettings?.PairCount,
+            Values = requestSettings?.Values,
+            TimeLimitSeconds = requestSettings?.TimeLimitSeconds,
+            PlayerName = requestSettings?.PlayerName
+        };
 
-            if (single != null && difficultyMap.ContainsKey(single))
-            {
-                StartNewGame(single);
-                return;
-            }
-            
-            var values = settings.Values;
-            var cards = values
-                .SelectMany((v, idx) => new[]
-            {
-                new Card(idx * 2 + 1, v, new Position(0, 0)),
-                new Card(idx * 2 + 2, v, new Position(0, 0))
-            })
-            .ToList();
-
-            _shuffle.Shuffle(cards);
-            var gridSize = (int)Math.Ceiling(Math.Sqrt(cards.Count));
-            var cardsWithPositions = cards
-                .Select((card, index) =>
-                {
-                    var row = index / gridSize;
-                    var col = index % gridSize;
-                    return new Card(card.Id, card.Value, new Position(row, col), card.IsFlipped, card.IsMatched);
-                })
-                .ToList();
-
-            _moveCount = 0;
-            _board = new GameBoard(cardsWithPositions, _moveCount);
-            _gameStartTime = DateTime.UtcNow;
-            return;
-        }
-
-        // Fallback to default difficulty-based start
-        StartNewGame("medium");
+        StartNewGame(mappedSettings);
     }
 
+    private static string ResolveDifficulty(string? difficulty) =>
+        string.IsNullOrWhiteSpace(difficulty) || !_difficultyMap.ContainsKey(difficulty)
+            ? DefaultDifficulty
+            : difficulty;
+
+    private static int ResolvePairCount(int? pairCount, string difficulty)
+    {
+        if (pairCount is > 0 && pairCount <= _symbolPool.Length)
+        {
+            return pairCount.Value;
+        }
+
+        return _difficultyMap[difficulty];
+    }
+    
     public GameBoard FlipCard(int cardId)
     {
         _board = _board.FlipCard(cardId);
