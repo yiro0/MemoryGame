@@ -1,8 +1,5 @@
 using MemoryGame.Backend.Api.Contracts;
-using MemoryGame.Backend.DataAccess.Interfaces;
 using MemoryGame.Backend.GameLogic;
-using MemoryGame.Backend.Models;
-using MemoryGame.Backend.Api.Contracts;
 
 namespace MemoryGame.Backend.Api;
 
@@ -27,20 +24,7 @@ public static class GameEndpoints
         
         group.MapGet("/state", (IGameManager gameManager) =>
             Results.Ok(gameManager.GetBoard()));
-        
-        group.MapPost("/score", (ScoreSubmission submission, IScoreRepository scores) =>
-        {
-            scores.SaveScore(new Score
-            {
-                PlayerName = submission.PlayerName,
-                Moves = submission.Moves,
-                TimeSeconds = submission.TimeSeconds,
-                CreatedAt = DateTime.UtcNow
-            });
-            return Results.Created();
-        });
     }
-    
+
     public record RevealRequest(int CardId);
-    public record ScoreSubmission(string PlayerName, int Moves, int TimeSeconds);
 }

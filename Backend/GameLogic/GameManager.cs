@@ -42,11 +42,6 @@ public class GameManager : IGameManager
     
     public GameBoard GetBoard() => _board;
     
-    public void StartNewGame(string difficulty)
-    {
-        StartNewGame(new GameSettings(difficulty));
-    }
-
     public void StartNewGame(GameSettings settings)
     {
         var effectiveDifficulty = ResolveDifficulty(settings?.Difficulty);

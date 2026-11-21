@@ -12,9 +12,4 @@ public class GameSettings
     {
         Difficulty = difficulty;
     }
-
-    public GameSettings(IEnumerable<string> values)
-    {
-        Values = values.ToList().AsReadOnly();
-    }
 }
