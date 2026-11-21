@@ -28,13 +28,4 @@ export const gameService = {
         return res.json(
         )
     },
-
-    submitScore: async (playerName: string, moves: number, timeSeconds: number): Promise<void> => {
-        const res = await fetch(`${API_BASE_URL}/game/score`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({playerName, moves, timeSeconds}),
-        });
-        if (!res.ok) throw Error(`Submit score failed: ${res.status}`);
-    },
 };
