@@ -10,8 +10,10 @@ internal static class TestHelpers
     public static (GameManager Manager, InMemoryScoreRepository Scores) CreateManager()
     {
         var scores = new InMemoryScoreRepository();
-        return (new GameManager(scores, new ShuffleHelper()), scores);
+        return (new GameManager(scores, CreateFactory()), scores);
     }
+
+    public static BoardFactory CreateFactory() => new(new ShuffleHelper());
 
     /// <summary>Returns the ids of every pair on the board, grouped by card value.</summary>
     public static List<(int First, int Second)> Pairs(GameBoard board) =>
