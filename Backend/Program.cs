@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IGameManager, GameManager>();
 builder.Services.AddSingleton<IScoreRepository, InMemoryScoreRepository>();
 builder.Services.AddSingleton<ShuffleHelper>();
+builder.Services.AddSingleton<BoardFactory>();
     
 builder.Services.AddOpenApi();
 
