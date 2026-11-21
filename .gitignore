@@ -41,3 +41,6 @@ riderModule.iml
 # environment files
 .env
 .env.*.local
+# Local tooling output / notes
+graphify-out/
+temp-claude/
