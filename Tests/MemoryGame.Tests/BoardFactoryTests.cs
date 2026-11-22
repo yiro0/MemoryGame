@@ -4,6 +4,9 @@ using static MemoryGame.Tests.TestHelpers;
 
 namespace MemoryGame.Tests;
 
+/// <summary>
+/// Board creation rules of <see cref="BoardFactory"/>: sizes, fallbacks, values, layout and seeding.
+/// </summary>
 public class BoardFactoryTests
 {
     private readonly BoardFactory _factory = CreateFactory();

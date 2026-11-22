@@ -3,6 +3,12 @@ import type {GameBoard} from "../models/GameBoard.ts";
 import {gameService} from "../services/gameService.ts";
 import {type Difficulty} from "../core/constants.ts";
 
+/**
+ * Game state hook: starts games and reveals cards through {@link gameService},
+ * and hides a mismatched pair again after a delay.
+ *
+ * @returns The board, move count, loading/error flags, actions, and whether input should be blocked.
+ */
 export const useGame = () => {
     const [board, setBoard] = useState<GameBoard | null>(null);
     const [moves, setMoves] = useState(0);

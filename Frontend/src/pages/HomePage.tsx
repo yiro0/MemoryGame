@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { DIFFICULTIES, type Difficulty } from '../core/constants.ts';
 import styles from './HomePage.module.css';
 
+/**
+ * Start screen: pick a difficulty and navigate to the game page with it in router state.
+ */
 export function HomePage() {
   const navigate = useNavigate();
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>('medium');

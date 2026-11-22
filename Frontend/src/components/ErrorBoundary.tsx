@@ -1,15 +1,25 @@
 import React from 'react';
 
+/**
+ * Internal state of {@link ErrorBoundary}.
+ */
 interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
   errorInfo: React.ErrorInfo | null;
 }
 
+/**
+ * Props for {@link ErrorBoundary}.
+ */
 interface ErrorBoundaryProps {
   children: React.ReactNode;
 }
 
+/**
+ * Catches render errors anywhere below it and shows a fallback screen with a retry button.
+ * Error details are only shown in development builds.
+ */
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);

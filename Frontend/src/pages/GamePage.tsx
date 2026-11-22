@@ -4,6 +4,10 @@ import { useGame } from '../hooks/useGame.ts';
 import type { Difficulty } from '../core/constants.ts';
 import styles from './GamePage.module.css';
 
+/**
+ * Game screen: starts a game for the difficulty passed from the home page,
+ * renders the card grid and stats, and offers reset / play again / home actions.
+ */
 export function GamePage() {
   const location = useLocation();
   const navigate = useNavigate();

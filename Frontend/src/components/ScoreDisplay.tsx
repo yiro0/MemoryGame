@@ -1,9 +1,16 @@
 import type { Score } from '../models/Score';
 
+/**
+ * Props for {@link ScoreDisplay}.
+ */
 interface ScoreDisplayProps {
   scores: Score[];
 }
 
+/**
+ * Leaderboard table of scores in the given order, or an empty-state message.
+ * (Not used yet - waiting for the real ScorePage.)
+ */
 export function ScoreDisplay({ scores }: ScoreDisplayProps) {
   if (!scores || scores.length === 0) {
     return (

@@ -1,11 +1,19 @@
 import type { Card as CardModel } from '../models/Card';
 
+/**
+ * Props for {@link Card}.
+ */
 interface CardProps {
   card: CardModel;
   onClick: () => void;
   disabled?: boolean;
 }
 
+/**
+ * A single memory card button: shows its value when flipped or matched, a placeholder otherwise.
+ * Matched cards are always disabled.
+ * (Not used yet - GamePage renders its own buttons.)
+ */
 export function Card({ card, onClick, disabled = false }: CardProps) {
   const isRevealed = card.isFlipped || card.isMatched;
 

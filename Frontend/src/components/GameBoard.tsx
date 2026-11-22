@@ -1,12 +1,19 @@
 import { Card } from './Card';
 import type {GameBoard as GameBoardType } from "../models/GameBoard.ts";
 
+/**
+ * Props for {@link GameBoard}.
+ */
 interface gameBoardProps {
     board: GameBoardType | null;
     onCardClick: (cardId: number) => void;
     gameWon?: boolean;
 }
 
+/**
+ * Grid of {@link Card} components for the given board, or a loading message while it is null.
+ * (Not used yet - GamePage renders its own grid.)
+ */
 export function GameBoard({ board, onCardClick, gameWon }: gameBoardProps) {
 if (!board) {
     return (

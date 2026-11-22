@@ -1,6 +1,10 @@
 import {API_BASE_URL} from "../core/config.ts";
 import type {GameBoard} from "../models/GameBoard.ts";
 
+/**
+ * HTTP client for the /game endpoints. Every call resolves to the updated board
+ * and throws when the response is not OK.
+ */
 export const gameService = {
     start: async (difficulty: string): Promise<GameBoard> => {
         const res = await fetch(`${API_BASE_URL}/game/start`, {

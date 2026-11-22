@@ -4,8 +4,20 @@ using System.Security.Cryptography;
 
 namespace MemoryGame.Backend.utilities;
 
+/// <summary>
+/// In-place Fisher–Yates shuffle, either cryptographically random or reproducible from a seed.
+/// </summary>
 public class ShuffleHelper
 {
+    /// <summary>
+    /// Shuffles <paramref name="list"/> in place.
+    /// </summary>
+    /// <param name="list">The list to shuffle.</param>
+    /// <param name="seed">
+    /// When set, the same seed always produces the same order (for replays and tests);
+    /// when <c>null</c>, a cryptographically secure random source is used.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="list"/> is <c>null</c>.</exception>
     public void Shuffle<T>(IList<T> list, int? seed = null)
     {
         if (list == null) throw new ArgumentNullException(nameof(list));

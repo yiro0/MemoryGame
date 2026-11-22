@@ -5,14 +5,19 @@ using MemoryGame.Backend.utilities;
 
 namespace MemoryGame.Tests;
 
+/// <summary>
+/// Shared setup and board-inspection helpers for the test classes.
+/// </summary>
 internal static class TestHelpers
 {
+    /// <summary>Creates a <see cref="GameManager"/> wired to a fresh in-memory score store, returned for assertions.</summary>
     public static (GameManager Manager, InMemoryScoreRepository Scores) CreateManager()
     {
         var scores = new InMemoryScoreRepository();
         return (new GameManager(scores, CreateFactory()), scores);
     }
 
+    /// <summary>Creates a <see cref="BoardFactory"/> with a real <see cref="ShuffleHelper"/>.</summary>
     public static BoardFactory CreateFactory() => new(new ShuffleHelper());
 
     /// <summary>Returns the ids of every pair on the board, grouped by card value.</summary>
@@ -30,5 +35,6 @@ internal static class TestHelpers
         return (first.Id, second.Id);
     }
 
+    /// <summary>The card with the given id.</summary>
     public static Card CardById(GameBoard board, int id) => board.Cards.Single(c => c.Id == id);
 }

@@ -3,6 +3,9 @@ using static MemoryGame.Tests.TestHelpers;
 
 namespace MemoryGame.Tests;
 
+/// <summary>
+/// Reveal, matching, move counting and win rules of <see cref="GameManager"/>.
+/// </summary>
 public class GameplayTests
 {
     private const string FixedInStep3 = "Known bug - server does not enforce reveal rules yet (Phase 4, step 3)";

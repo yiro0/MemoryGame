@@ -4,6 +4,15 @@ using MemoryGame.Backend.Api.Contracts;
 
 namespace MemoryGame.Backend.GameLogic;
 
+/// <summary>
+/// Default <see cref="IGameManager"/>: holds the single active game, counts moves,
+/// matches pairs and saves the score when the board is cleared.
+/// </summary>
+/// <remarks>
+/// Registered as a singleton, so all clients share one game.
+/// Known gaps (fixed in Phase 4, step 3): flipping toggles instead of revealing,
+/// and the score is saved again on every flip after a win.
+/// </remarks>
 public class GameManager : IGameManager
 {
     private readonly IScoreRepository _scoreRepo;
@@ -12,6 +21,11 @@ public class GameManager : IGameManager
     private DateTime _gameStartTime;
     private int _moveCount;
 
+    /// <summary>
+    /// Creates a manager with an empty board.
+    /// </summary>
+    /// <param name="scoreRepo">Where finished-game scores are saved.</param>
+    /// <param name="boardFactory">Builds the board for each new game.</param>
     public GameManager(IScoreRepository scoreRepo, BoardFactory boardFactory)
     {
         _scoreRepo = scoreRepo;
@@ -19,8 +33,10 @@ public class GameManager : IGameManager
         _board = new GameBoard(new List<Card>());
     }
 
+    /// <inheritdoc />
     public GameBoard GetBoard() => _board;
 
+    /// <inheritdoc />
     public void StartNewGame(GameSettings settings)
     {
         _moveCount = 0;
@@ -28,6 +44,8 @@ public class GameManager : IGameManager
         _gameStartTime = DateTime.UtcNow;
     }
 
+    /// <inheritdoc />
+    /// <remarks>Nested <see cref="StartGameRequest.Settings"/> values win over the top-level difficulty.</remarks>
     public void StartNewGame(StartGameRequest settings)
     {
         var requestSettings = settings?.Settings;
@@ -43,6 +61,11 @@ public class GameManager : IGameManager
         StartNewGame(mappedSettings);
     }
 
+    /// <inheritdoc />
+    /// <remarks>
+    /// When two unmatched cards are face up, one move is counted and equal values are matched.
+    /// Clearing the board saves a score.
+    /// </remarks>
     public GameBoard FlipCard(int cardId)
     {
         _board = _board.FlipCard(cardId);
@@ -72,5 +95,7 @@ public class GameManager : IGameManager
         return _board;
     }
 
+    /// <inheritdoc />
+    /// <remarks>Also <c>true</c> for an empty board, i.e. before the first game.</remarks>
     public bool IsComplete() => _board.Cards.All(c => c.IsMatched);
 }

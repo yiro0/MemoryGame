@@ -27,15 +27,27 @@ public class BoardFactory
             { "hard", 10 }
         };
 
+    /// <summary>
+    /// Difficulty used when none, or an unknown one, is requested.
+    /// </summary>
     public const string DefaultDifficulty = "medium";
 
     private readonly ShuffleHelper _shuffle;
 
+    /// <summary>
+    /// Creates a factory that shuffles with the given helper.
+    /// </summary>
+    /// <param name="shuffle">Shuffles card values and card order.</param>
     public BoardFactory(ShuffleHelper shuffle)
     {
         _shuffle = shuffle;
     }
 
+    /// <summary>
+    /// Builds a new board: resolves difficulty and pair count, picks values,
+    /// creates two cards per value, shuffles them and lays them out in a square grid.
+    /// </summary>
+    /// <param name="settings">Configuration; <c>null</c> means all defaults (medium).</param>
     /// <param name="seed">Optional seed for reproducible boards (roadmap Phase 6 determinism).</param>
     public GameBoard Create(GameSettings? settings, int? seed = null)
     {
@@ -87,6 +99,9 @@ public class BoardFactory
         return values;
     }
 
+    /// <summary>
+    /// Lays cards out row by row in the smallest square grid that fits them.
+    /// </summary>
     private static List<Card> AssignPositions(List<Card> cards)
     {
         var gridSize = (int)Math.Ceiling(Math.Sqrt(cards.Count));

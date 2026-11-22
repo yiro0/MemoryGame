@@ -4,6 +4,9 @@ using MemoryGame.Backend.utilities;
 
 namespace MemoryGame.Tests;
 
+/// <summary>
+/// Determinism and correctness of <see cref="ShuffleHelper"/>.
+/// </summary>
 public class ShuffleHelperTests
 {
     [Fact]
@@ -36,6 +39,9 @@ public class ShuffleHelperTests
     }
 }
 
+/// <summary>
+/// Storage behaviour of <see cref="InMemoryScoreRepository"/>.
+/// </summary>
 public class InMemoryScoreRepositoryTests
 {
     [Fact]

@@ -3,6 +3,10 @@ import { HomePage } from "./pages/HomePage.tsx";
 import { GamePage } from "./pages/GamePage.tsx";
 import { ScorePage } from "./pages/ScorePage.tsx";
 
+/**
+ * Root component: maps URL paths to pages.
+ * Unknown paths redirect to the home page.
+ */
 export default function App() {
   return (
     <Routes>
