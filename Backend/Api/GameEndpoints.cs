@@ -1,5 +1,7 @@
 using MemoryGame.Backend.Api.Contracts;
+using MemoryGame.Backend.DataAccess.Interfaces;
 using MemoryGame.Backend.GameLogic;
+using MemoryGame.Backend.Models;
 
 namespace MemoryGame.Backend.Api;
 
@@ -23,11 +25,23 @@ public static class GameEndpoints
             return Results.Ok(gameManager.GetBoard());
         });
 
-        // Instead of reveal card flip card is being used
-        group.MapPost("/reveal", (RevealRequest request, IGameManager gameManager) =>
+        // Score saving moves into GameService in step 4.
+        group.MapPost("/reveal", (RevealRequest request, IGameManager gameManager, IScoreRepository scoreRepo) =>
         {
-            var board = gameManager.FlipCard(request.CardId);
-            return Results.Ok(board);
+            var result = gameManager.RevealCard(request.CardId);
+            if (result.JustWon)
+            {
+                var playerName = gameManager.Settings?.PlayerName;
+                scoreRepo.SaveScore(new Score
+                {
+                    // TODO: Login feature and login credentials
+                    PlayerName = string.IsNullOrWhiteSpace(playerName) ? "Anonymous" : playerName,
+                    Moves = gameManager.Moves,
+                    TimeSeconds = gameManager.ElapsedSeconds,
+                });
+            }
+
+            return Results.Ok(result.Board);
         });
 
         group.MapGet("/state", (IGameManager gameManager) =>

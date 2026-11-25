@@ -35,13 +35,26 @@ public class GameBoard
     }
 
     /// <summary>
-    /// Returns a new board with the face of the given card toggled.
+    /// Returns a new board with the given card face up.
     /// </summary>
-    /// <param name="cardId">Id of the card to toggle.</param>
-    public GameBoard FlipCard(int cardId)
+    /// <param name="cardId">Id of the card to reveal.</param>
+    public GameBoard RevealCard(int cardId)
     {
         var updateCards = Cards
-            .Select(card => card.Id == cardId ? card.Flip() : card)
+            .Select(card => card.Id == cardId ? card.Reveal() : card)
+            .ToList();
+        return new GameBoard(updateCards, Moves);
+    }
+
+    /// <summary>
+    /// Returns a new board with the given cards face down.
+    /// </summary>
+    /// <param name="cardIds">Ids of the cards to hide.</param>
+    public GameBoard HideCards(IEnumerable<int> cardIds)
+    {
+        var idSet = new HashSet<int>(cardIds);
+        var updateCards = Cards
+            .Select(card => idSet.Contains(card.Id) ? card.Hide() : card)
             .ToList();
         return new GameBoard(updateCards, Moves);
     }

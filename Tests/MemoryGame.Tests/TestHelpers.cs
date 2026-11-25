@@ -1,4 +1,3 @@
-using MemoryGame.Backend.DataAccess.InMemory;
 using MemoryGame.Backend.GameLogic;
 using MemoryGame.Backend.Models;
 using MemoryGame.Backend.utilities;
@@ -10,12 +9,8 @@ namespace MemoryGame.Tests;
 /// </summary>
 internal static class TestHelpers
 {
-    /// <summary>Creates a <see cref="GameManager"/> wired to a fresh in-memory score store, returned for assertions.</summary>
-    public static (GameManager Manager, InMemoryScoreRepository Scores) CreateManager()
-    {
-        var scores = new InMemoryScoreRepository();
-        return (new GameManager(scores, CreateFactory()), scores);
-    }
+    /// <summary>Creates a <see cref="GameManager"/> with a real <see cref="BoardFactory"/>.</summary>
+    public static GameManager CreateManager() => new(CreateFactory());
 
     /// <summary>Creates a <see cref="BoardFactory"/> with a real <see cref="ShuffleHelper"/>.</summary>
     public static BoardFactory CreateFactory() => new(new ShuffleHelper());

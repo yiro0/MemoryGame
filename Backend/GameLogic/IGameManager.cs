@@ -10,6 +10,26 @@ namespace MemoryGame.Backend.GameLogic;
 public interface IGameManager
 {
     /// <summary>
+    /// Current stage of the game.
+    /// </summary>
+    GameStatus Status { get; }
+
+    /// <summary>
+    /// Moves made in the current game.
+    /// </summary>
+    int Moves { get; }
+
+    /// <summary>
+    /// Settings of the current game; <c>null</c> before the first game.
+    /// </summary>
+    GameSettings? Settings { get; }
+
+    /// <summary>
+    /// Seconds since the game started, frozen once it is won.
+    /// </summary>
+    int ElapsedSeconds { get; }
+
+    /// <summary>
     /// Returns the current board (empty before the first game starts).
     /// </summary>
     GameBoard GetBoard();
@@ -30,13 +50,8 @@ public interface IGameManager
     void StartNewGame(StartGameRequest settings);
 
     /// <summary>
-    /// Flips a card and applies the matching rules; returns the updated board.
+    /// Reveals a card and applies the game rules. Invalid reveals change nothing.
     /// </summary>
-    /// <param name="cardId">Id of the card to flip.</param>
-    GameBoard FlipCard(int cardId);
-
-    /// <summary>
-    /// Returns <c>true</c> when every card on the board is matched.
-    /// </summary>
-    bool IsComplete();
+    /// <param name="cardId">Id of the card to reveal.</param>
+    RevealResult RevealCard(int cardId);
 }

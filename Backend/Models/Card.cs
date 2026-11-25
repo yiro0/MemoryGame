@@ -50,9 +50,14 @@ public class Card
     }
 
     /// <summary>
-    /// Returns a copy with <see cref="IsFlipped"/> toggled.
+    /// Returns a copy with its face showing.
     /// </summary>
-    public Card Flip() => new Card(Id, Value, Position, !IsFlipped, IsMatched);
+    public Card Reveal() => new Card(Id, Value, Position, true, IsMatched);
+
+    /// <summary>
+    /// Returns a copy with its face hidden.
+    /// </summary>
+    public Card Hide() => new Card(Id, Value, Position, false, IsMatched);
 
     /// <summary>
     /// Returns a copy marked as matched.

@@ -53,17 +53,15 @@ export const useGame = () => {
         if (flipped.length === 2) {
             if (flipped[0].value !== flipped[1].value) {
                 setIsAutoFlipping(true);
-                const timer = setTimeout(async () => {
-                    try {
-                        await gameService.flipCard(flipped[0].id);
-                        const updatedBoard = await gameService.flipCard(flipped[1].id);
-                        setBoard(updatedBoard);
-                        setMoves(updatedBoard.moves ?? moves);
-                        setIsAutoFlipping(false);
-                    } catch {
-                        setError("Failed to auto-flip cards!");
-                        setIsAutoFlipping(false);
-                    }
+                // Visual only: the server hides the pair itself on the next reveal.
+                const hiddenIds = flipped.map(c => c.id);
+                const timer = setTimeout(() => {
+                    setBoard(current => current && {
+                        ...current,
+                        cards: current.cards.map(c =>
+                            hiddenIds.includes(c.id) ? {...c, isFlipped: false} : c),
+                    });
+                    setIsAutoFlipping(false);
                 }, 1500);
 
                 return () => {

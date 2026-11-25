@@ -137,7 +137,7 @@ public class StartGameRequestMappingTests
     [InlineData("impossible")]
     public void UnknownDifficulty_FallsBackToMedium(string? difficulty)
     {
-        var (manager, _) = CreateManager();
+        var manager = CreateManager();
 
         manager.StartNewGame(new StartGameRequest(Difficulty: difficulty));
 
@@ -147,7 +147,7 @@ public class StartGameRequestMappingTests
     [Fact]
     public void NestedSettings_WinOverTopLevelDifficulty()
     {
-        var (manager, _) = CreateManager();
+        var manager = CreateManager();
 
         manager.StartNewGame(new StartGameRequest(new GameSettingsRequest(Difficulty: "hard"), Difficulty: "easy"));
 

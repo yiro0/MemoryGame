@@ -26,7 +26,7 @@ public class GameSettings
     public int? TimeLimitSeconds { get; init; }
 
     /// <summary>
-    /// Name stored with the score (not used yet).
+    /// Name stored with the score; blank means anonymous.
     /// </summary>
     public string? PlayerName { get; init; }
 
