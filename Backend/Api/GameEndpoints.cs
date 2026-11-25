@@ -25,7 +25,6 @@ public static class GameEndpoints
             return Results.Ok(gameManager.GetBoard());
         });
 
-        // Score saving moves into GameService in step 4.
         group.MapPost("/reveal", (RevealRequest request, IGameManager gameManager, IScoreRepository scoreRepo) =>
         {
             var result = gameManager.RevealCard(request.CardId);
