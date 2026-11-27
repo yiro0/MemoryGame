@@ -1,0 +1,5 @@
+root = true
+
+# Make editors (Rider, VS, VS Code) create new files with LF line endings.
+[*]
+end_of_line = lf
