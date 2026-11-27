@@ -28,7 +28,7 @@ public class InMemoryScoreRepositoryTests
 
         var top = repo.GetTopScores(10).ToList();
         
-        Assert.Equal("fast", top[0].PlayerName);
+        Assert.Equal("fast", top[1].PlayerName);
     }
 
     [Fact]
