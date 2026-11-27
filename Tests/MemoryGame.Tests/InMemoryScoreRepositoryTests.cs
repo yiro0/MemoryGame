@@ -1,4 +1,5 @@
-﻿using MemoryGame.Backend.DataAccess.InMemory;
+﻿using System.Runtime.InteropServices;
+using MemoryGame.Backend.DataAccess.InMemory;
 using MemoryGame.Backend.Models;
 using MemoryGame.Backend.utilities;
 
@@ -32,7 +33,7 @@ public class InMemoryScoreRepositoryTests
     }
 
     [Fact]
-    public void TopScores_RespectLimit()
+    public void TopScores_RespectCount()
     {
         // Save 3 scores, ask for 2, and check the count
         var repo = new InMemoryScoreRepository();
@@ -56,5 +57,15 @@ public class InMemoryScoreRepositoryTests
         var top = repo.GetTopScores(2).ToList();
         
         Assert.Equal("slow", top[0].PlayerName);
+    }
+
+    [Theory]
+    [InlineData(2)]
+    [InlineData(-5)]
+    public void TopScores_RespectLimit(int limit)
+    {
+        var repo = new InMemoryScoreRepository();
+        
+        Assert.Throws<ArgumentOutOfRangeException>(() => repo.GetTopScores(limit).ToList());
     }
 }
