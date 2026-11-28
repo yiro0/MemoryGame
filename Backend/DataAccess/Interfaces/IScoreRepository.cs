@@ -20,13 +20,9 @@ public interface IScoreRepository
     void SaveScore(Score score);
 
     /// <summary>
-    /// Returns every stored score, in no particular order.
+    /// Returns the best scores, best first: fewest moves, then shortest time.
     /// </summary>
-    IEnumerable<Score> GetAllScores();
-
-    /// <summary>
-    /// Returns the best scores (fewest moves, then shortest time).
-    /// </summary>
-    /// <param name="limit">Maximum number of scores to return.</param>
+    /// <param name="limit">How many scores to return. Implementations may cap it.</param>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="limit"/> is zero or negative.</exception>
     IEnumerable<Score> GetTopScores(int limit);
 }

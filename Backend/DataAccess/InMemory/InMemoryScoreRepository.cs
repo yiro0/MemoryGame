@@ -10,6 +10,9 @@ namespace MemoryGame.Backend.DataAccess.InMemory;
 /// </summary>
 public class InMemoryScoreRepository : IScoreRepository
 {
+    /// <summary> Largest number of scores one call can return. <c>100</c>.</summary>
+    public const int MaxScoresPerCall = 100;
+    
     private readonly ConcurrentBag<Score> _scores = new();
 
     /// <inheritdoc />
@@ -19,12 +22,19 @@ public class InMemoryScoreRepository : IScoreRepository
     }
 
     /// <inheritdoc />
-    public IEnumerable<Score> GetAllScores() => _scores.ToArray();
-
-    /// <inheritdoc />
-    /// <remarks>Not implemented yet: ignores <paramref name="limit"/> and returns every score unsorted.</remarks>
     public IEnumerable<Score> GetTopScores(int limit)
     {
-        return _scores;
+        if (limit <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(limit), "Limit must be a positive integer.");
+        }
+        
+        limit = Math.Min(limit, MaxScoresPerCall);
+        
+        return _scores
+            .OrderBy(s => s.Moves)
+            .ThenBy(s => s.TimeSeconds)
+            .Take(limit)
+            .ToArray();
     }
 }

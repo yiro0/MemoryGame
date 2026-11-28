@@ -17,12 +17,7 @@ public static class ScoreEndpoints
         app.MapGet("/score/top", (IScoreRepository scores, int limit = 10) =>
         {
             if (limit <= 0) return Results.BadRequest("Limit must be > 0");
-            var top = scores.GetAllScores()
-                .OrderBy(s => s.Moves)
-                .ThenBy(s => s.TimeSeconds)
-                .Take(limit);
-
-            return Results.Ok(top);
+            return Results.Ok(scores.GetTopScores(limit));
         });
     }
 }
